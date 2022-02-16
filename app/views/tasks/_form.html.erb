@@ -1,6 +1,9 @@
-<%= form_with(model: task, class: "contents") do |form| %>
+<%= form_with(
+  model: task,
+  html: { id: 'task_form', class: 'w-full', data: { controller: 'form' } }
+) do |form| %>
   <% if task.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+    <div style="color: red">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
       <ul>
@@ -11,22 +14,22 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <div class="mb-6">
+    <%= form.label :title, class: 'label'  %>
+    <%= form.text_field :title, autofocus: true, class: 'form-input w-full p-2 rounded', data: { action: 'focusout->form#focusout focus->form#focus'} %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :status %>
-    <%= form.check_box :status, class: "block mt-2 h-5 w-5" %>
+
+  <div>
+    <%= form.label :status,  class: 'label' %>
+    <%= form.check_box :status, class: 'form-checkbox h-5 w-5 text-blue-600 rounded' %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+  <div class="flex justify-between mt-6">
+    <%= form.submit nil, class: 'btn-primary' %>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= link_to 'Cancel', root_url, class: 'btn-danger' %>
   </div>
 <% end %>
