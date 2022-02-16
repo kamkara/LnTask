@@ -5,21 +5,23 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+*add user feature
+* install redis 
+for ubuntu dev...
+ install redis: sudo apt install redis-server
+ configuration:
+ open config file with your favorite editor
+ sudo subl /etc/redis/redis.conf
 
-* System dependencies
+ Inside the file, find the supervised directive
+ and 
+ add replace "no" by "systemd" after supervised
 
-* Configuration
 
-* Database creation
+ Note important: The supervised directive is set to no by default. Since you are running Ubuntu, which uses the systemd init system, change this to systemd:
 
-* Database initialization
+restart redis server:
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ sudo systemctl restart redis.service
 # LnTask
+Redis config link : https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04
